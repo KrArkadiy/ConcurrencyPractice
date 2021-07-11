@@ -20,9 +20,9 @@ public class Foo {
         CyclicBarrier cb = new CyclicBarrier(3, new BarAction());
         Foo f1 = new Foo();
 
-        MySecondThread mST = new MySecondThread(f1, cb, "B");
-        MyThirdThread mTT = new MyThirdThread(f1, cb, "A");
-        MyFirstThread mFT = new MyFirstThread(f1, cb, "C");
+        new MySecondThread(f1, cb, "B");
+        new MyThirdThread(f1, cb, "A");
+        new MyFirstThread(f1, cb, "C");
     }
 }
 
