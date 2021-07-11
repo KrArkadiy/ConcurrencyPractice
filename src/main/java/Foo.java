@@ -15,15 +15,13 @@ public class Foo {
     public void third(Runnable r) {
         System.out.print("third");
     }
-}
 
-class ThreadStart {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         CyclicBarrier cb = new CyclicBarrier(3, new BarAction());
         Foo f1 = new Foo();
 
-        MySecondThread mST = new MySecondThread(f1, cb,  "B");
-        MyThirdThread mTT = new MyThirdThread(f1, cb,  "A");
+        MySecondThread mST = new MySecondThread(f1, cb, "B");
+        MyThirdThread mTT = new MyThirdThread(f1, cb, "A");
         MyFirstThread mFT = new MyFirstThread(f1, cb, "C");
     }
 }
@@ -33,7 +31,7 @@ class MyFirstThread implements Runnable {
     Foo f1;
     CyclicBarrier cyclicBarrier;
 
-    public MyFirstThread(Foo f,CyclicBarrier cb, String n) {
+    public MyFirstThread(Foo f, CyclicBarrier cb, String n) {
         cyclicBarrier = cb;
         name = n;
         f1 = f;
@@ -43,10 +41,9 @@ class MyFirstThread implements Runnable {
     public void run() {
         try {
             cyclicBarrier.await();
-            f1.first(this);
-        } catch (BrokenBarrierException e){
+        } catch (BrokenBarrierException e) {
             System.out.println(e);
-        } catch (InterruptedException exc){
+        } catch (InterruptedException exc) {
             System.out.println(exc);
         }
     }
@@ -67,10 +64,9 @@ class MySecondThread implements Runnable {
     public void run() {
         try {
             cyclicBarrier.await();
-            f1.second(this);
-        } catch (BrokenBarrierException e){
+        } catch (BrokenBarrierException e) {
             System.out.println(e);
-        } catch (InterruptedException exc){
+        } catch (InterruptedException exc) {
             System.out.println(exc);
         }
     }
@@ -88,22 +84,26 @@ class MyThirdThread implements Runnable {
         new Thread(this).start();
     }
 
-    public void run(){
+    public void run() {
         try {
             cyclicBarrier.await();
-            f1.third(this);
-        } catch (BrokenBarrierException e){
+        } catch (BrokenBarrierException e) {
             System.out.println(e);
-        } catch (InterruptedException exc){
+        } catch (InterruptedException exc) {
             System.out.println(exc);
         }
     }
 }
 
-class BarAction implements Runnable{
+class BarAction implements Runnable {
 
-    public void run(){
+    Foo f1 = new Foo();
+    public void run() {
         System.out.println("Барьер достигнут");
+        System.out.println();
+        f1.first(this);
+        f1.second(this);
+        f1.third(this);
     }
 }
 
