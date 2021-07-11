@@ -98,6 +98,7 @@ class MyThirdThread implements Runnable {
 class BarAction implements Runnable {
 
     Foo f1 = new Foo();
+
     public void run() {
         System.out.println("Барьер достигнут");
         System.out.println();
