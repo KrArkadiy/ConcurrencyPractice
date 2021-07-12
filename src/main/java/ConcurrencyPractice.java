@@ -1,7 +1,5 @@
-import java.util.List;
+
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 
 public class ConcurrencyPractice {
     public static void main(String[] args) {
